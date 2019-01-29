@@ -30,6 +30,15 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       }
     });
 
+    chrome.tabs.executeScript(tabId, {
+      file: 'libs/jquery.js'
+    }, function(res) {
+      if (chrome.runtime.lastError) {
+        // file not found, fail silently
+        return;
+      }
+    });
+
     if (match) {
       // attempt to insert domain specific css
       chrome.tabs.insertCSS(tabId, {
